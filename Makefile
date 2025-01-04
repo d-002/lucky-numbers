@@ -8,7 +8,7 @@ MATH = -lm -ldl
 LDLIBS = $(MATH)
 
 FIND_O = $(subst .c,.o,$(shell find $(1) -name "*.c" -type f))
-OBJ = main.o $(call FIND_O,src)
+OBJ = main.o $(call FIND_O,.)
 
 SANITIZER = -fsanitize=address
 #SANITIZER =
