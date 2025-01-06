@@ -1,3 +1,6 @@
+#ifndef GAME_H
+#define GAME_H
+
 typedef struct Tile {
     /*
     * value: from 1 to 20
@@ -20,3 +23,5 @@ typedef struct Game {
 Game *init_game(int, int);
 void free_game(Game *);
 void print_game(Game *);
+
+#endif /* GAME_H */
