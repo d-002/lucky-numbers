@@ -93,6 +93,7 @@ void print_game(Game *game) {
     char lines[nLines][lineLen];
     int indices[nLines];
 
+    // players
     for (int n = 0; n < game->numPlayers;) {
         // reset lines
         for (int j = 0; j < nLines; j++)
@@ -140,4 +141,21 @@ void print_game(Game *game) {
         for (int j = 0; j < nLines; j++) printf("%s", lines[j]);
         printf("\n");
     }
+
+    // common tiles
+    int x = 0;
+    int newline = 0;
+
+    printf("Common tiles:\n");
+    for (int i = 0, I = game->numPlayers * 20; i < I; i++) {
+        Tile *tile = game->allTiles+i;
+        if (tile->isTaken) continue;
+
+        newline = ++x >= 20;
+        if (newline) x = 0;
+        char sep = newline ? '\n' : ' ';
+        twoDigits(tile->isVisible ? tile->value : 0, two);
+        printf("%s%c", two, sep);
+    }
+    if (!newline) printf("\n");
 }
