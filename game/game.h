@@ -14,9 +14,9 @@ typedef struct Game {
     int aiMask;
 
     Tile ****players;
-    Tile **allTiles;
+    Tile *allTiles;
 } Game;
 
 Game *init_game(int, int);
-void print_game(Game *);
 void free_game(Game *);
+void print_game(Game *);

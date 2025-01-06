@@ -24,13 +24,56 @@ Game *init_game(int numPlayers, int aiMask) {
 
     Game *game = malloc(sizeof(struct Game));
 
+    // init basic info
     game->numPlayers = numPlayers;
     game->aiMask = aiMask;
+
+    // init players
+    game->players = malloc(numPlayers * sizeof(Tile ***));
+
+    for (int n = 0; n < numPlayers; n++) {
+        Tile ***player = malloc(4 * sizeof(Tile **));
+        game->players[n] = player;
+
+        for (int y = 0; y < 4; y++)
+            player[y] = calloc(4, sizeof(Tile *));
+    }
+
+    // init tiles bank
+    game->allTiles = malloc(numPlayers * 20 * sizeof(Tile));
+    for (int i = 0, n = 0; n < numPlayers; n++)
+        for (int value = 1; value <= 20; value++, i++) {
+            Tile *tile = game->allTiles+i;
+            tile->value = value;
+            tile->isVisible = 0;
+            tile->isTaken = 0;
+        }
 
     return game;
 }
 
+void free_game(Game *game) {
+    // free tiles
+    free(game->allTiles);
+
+    // free players
+    for (int n = 0; n < game->numPlayers; n++) {
+        Tile ***player = game->players[n];
+
+        for (int y = 0; y < 4; y++) free(player[y]);
+        free(player);
+    }
+    free(game->players);
+
+    free(game);
+}
+
 void twoDigits(int value, char dest[2]) {
+    if (!value) {
+        dest[0] = dest[1] = '.';
+        return;
+    }
+
     dest[0] = value < 10 ? ' ' : '0' + value/10;
     dest[1] = '0' + value%10;
 }
@@ -60,6 +103,8 @@ void print_game(Game *game) {
             int isLast = n == game->numPlayers-1;
             char *sep = (i == 3 || isLast) ? "\n" : "#";
 
+            Tile ***player = game->players[n];
+
             // add data to the lines
             twoDigits(n+1, two);
             addString(lines[0], "    Player ", indices);
@@ -75,7 +120,9 @@ void print_game(Game *game) {
 
                 addString(line, " | ", index);
                 for (int x = 0; x < 4; x++) {
-                    twoDigits(y*4+x+1, two);
+                    Tile *tile = player[y][x];
+
+                    twoDigits(tile ? tile->value : 0, two);
                     addString(line, two, index);
                     addString(line, " ", index);
                 }
@@ -93,8 +140,4 @@ void print_game(Game *game) {
         for (int j = 0; j < nLines; j++) printf("%s", lines[j]);
         printf("\n");
     }
-}
-
-void free_game(Game *game) {
-    free(game);
 }
