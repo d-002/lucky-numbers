@@ -1,6 +1,7 @@
 #include "print.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 void twoDigits(int value, char dest[2]) {
@@ -18,6 +19,28 @@ void addString(char *receiver, char *data, int *count) {
 
     memcpy(receiver + *count, data, len);
     *count += len;
+}
+
+void print_tile_array(Tile **arr, int length) {
+    char two[3];
+    two[2] = '\0';
+
+    int x = 0;
+    int newline = 0;
+
+    for (int i = 0; i < length; i++) {
+        newline = ++x >= 20;
+        if (newline) x = 0;
+        char sep = newline ? '\n' : ' ';
+
+        Tile *tile = arr[i];
+        twoDigits(tile->isVisible ? tile->value : 0, two);
+
+        printf("%s%c", two, sep);
+    }
+
+    // add a newline, but not if already just added one as a separator
+    if (!newline) printf("\n");
 }
 
 void print_game(Game *game) {
@@ -78,19 +101,23 @@ void print_game(Game *game) {
     }
 
     // common tiles
-    int x = 0;
-    int newline = 0;
-
     printf("Common tiles:\n");
+    int I = game->numPlayers * 20;
+    Tile **hidden = malloc(I * sizeof(Tile *));
+    Tile **visible = malloc(I * sizeof(Tile *));
+    int count_h = 0, count_v = 0;
+
     for (int i = 0, I = game->numPlayers * 20; i < I; i++) {
         Tile *tile = game->allTiles+i;
+
         if (tile->isTaken) continue;
 
-        newline = ++x >= 20;
-        if (newline) x = 0;
-        char sep = newline ? '\n' : ' ';
-        twoDigits(tile->isVisible ? tile->value : 0, two);
-        printf("%s%c", two, sep);
+        if (tile->isVisible) visible[count_v++] = tile;
+        else hidden[count_h++] = tile;
     }
-    if (!newline) printf("\n");
+
+    print_tile_array(hidden, count_h);
+    print_tile_array(visible, count_v);
+    free(hidden);
+    free(visible);
 }
