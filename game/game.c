@@ -106,5 +106,5 @@ int play(Game *game, int pid) {
 
     if (has_won(game, pid)) return -1;
 
-    return (pid+1) % game->numPlayers;
+    return pid % game->numPlayers + 1;
 }
