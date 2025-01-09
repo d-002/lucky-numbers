@@ -20,8 +20,15 @@ typedef struct Game {
     Tile *allTiles;
 } Game;
 
+// general Game utils
 Game *init_game(int, int);
 void free_game(Game *);
-void print_game(Game *);
+
+// in-game utils
+int get_start_pid();
+Tile *flip_random(Game *);
+Tile *choose_flipped(Game *, int);
+void place_tile_at(Game *, Tile *, int, int, int);
+int play(Game *, int);
 
 #endif /* GAME_H */
