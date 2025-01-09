@@ -1,8 +1,8 @@
 #ifndef PLAYER_CLI_H
 #define PLAYER_CLI_H
 
-#include "../game.h"
+#include "../game/game.h"
 
-void play(Game *);
+void player_play(Game *);
 
 #endif /* PLAYER_CLI_H */

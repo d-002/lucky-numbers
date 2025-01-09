@@ -1,4 +1,6 @@
+#include "player.h"
+
 #include <stdio.h>
 
-void play(Game *game) {
+void player_play(Game *game) {
 }

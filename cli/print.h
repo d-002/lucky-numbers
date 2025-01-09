@@ -1,7 +1,7 @@
 #ifndef PRINT_H
 #define PRINT_H
 
-#include "game.h"
+#include "../game/game.h"
 
 void print_game(Game *);
 

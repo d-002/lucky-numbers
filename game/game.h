@@ -20,6 +20,9 @@ typedef struct Game {
     Tile *allTiles;
 } Game;
 
+#include "../cli/player.h"
+#include "../ai/v1.h"
+
 // general Game utils
 Game *init_game(int, int);
 void free_game(Game *);

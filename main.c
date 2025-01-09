@@ -2,8 +2,7 @@
 #include <err.h>
 
 #include "game/game.h"
-#include "game/print.h"
-#include "ai/v1.h"
+#include "cli/print.h"
 
 int main() {
     Game *game = init_game(2, 1);
