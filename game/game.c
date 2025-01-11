@@ -101,9 +101,9 @@ int has_won(Game *game, int pid) {
 
 int play(Game *game, int pid) {
     if (game->aiMask & (1 << (pid-1)))
-        player_play(game);
-    else
         ai_play(game);
+    else
+        player_play(game);
 
     return -1;
     if (has_won(game, pid)) return -1;
