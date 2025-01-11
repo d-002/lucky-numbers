@@ -104,6 +104,7 @@ int play(Game *game, int pid) {
     else
         ai_play(game);
 
+    return -1;
     if (has_won(game, pid)) return -1;
 
     return pid % game->numPlayers + 1;
