@@ -102,12 +102,11 @@ void print_game(Game *game) {
 
     // common tiles
     printf("Common tiles:\n");
-    int I = game->numPlayers * 20;
-    Tile **hidden = malloc(I * sizeof(Tile *));
-    Tile **visible = malloc(I * sizeof(Tile *));
+    Tile **hidden = malloc(game->numTiles * sizeof(Tile *));
+    Tile **visible = malloc(game->numTiles * sizeof(Tile *));
     int count_h = 0, count_v = 0;
 
-    for (int i = 0, I = game->numPlayers * 20; i < I; i++) {
+    for (int i = 0; i < game->numTiles; i++) {
         Tile *tile = game->allTiles+i;
 
         if (tile->isTaken) continue;

@@ -38,7 +38,8 @@ Game *init_game(int numPlayers, int aiMask) {
     }
 
     // init tiles bank
-    game->allTiles = malloc(numPlayers * 20 * sizeof(Tile));
+    game->numTiles = numPlayers * 20;
+    game->allTiles = malloc(game->numTiles * sizeof(Tile));
     for (int i = 0, n = 0; n < numPlayers; n++)
         for (int value = 1; value <= 20; value++, i++) {
             Tile *tile = game->allTiles+i;

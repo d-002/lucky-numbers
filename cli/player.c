@@ -4,8 +4,9 @@
 
 typedef int (*check_func)(Game *, int);
 
-check_func in_hidden(Game *game, int n) {
+int in_hidden(Game *game, int n) {
     if (n < 1 || n > 20) return 0;
+
     return 1;
 }
 

@@ -18,6 +18,7 @@ typedef struct Game {
 
     Tile ****players;
     Tile *allTiles;
+    int numTiles;
 } Game;
 
 #include "../cli/player.h"
