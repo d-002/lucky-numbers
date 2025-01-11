@@ -3,6 +3,6 @@
 
 #include "../game/game.h"
 
-void ai_play(Game *);
+void ai_play(Game *, int);
 
 #endif /* V1_H */

@@ -3,6 +3,6 @@
 
 #include "../game/game.h"
 
-void player_play(Game *);
+void player_play(Game *, int);
 
 #endif /* PLAYER_CLI_H */

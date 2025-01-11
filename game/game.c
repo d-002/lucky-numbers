@@ -77,7 +77,7 @@ Tile *flip_random(Game *game) {
     return NULL;
 }
 
-Tile *choose_flipped(Game *game, int value) {
+Tile *choose_visible(Game *game, int value) {
     // choose a common tile by value, among those that are flipped
 
     return NULL;
@@ -101,9 +101,9 @@ int has_won(Game *game, int pid) {
 
 int play(Game *game, int pid) {
     if (game->aiMask & (1 << (pid-1)))
-        ai_play(game);
+        ai_play(game, pid);
     else
-        player_play(game);
+        player_play(game, pid);
 
     return -1;
     if (has_won(game, pid)) return -1;

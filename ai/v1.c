@@ -1,4 +1,4 @@
 #include "v1.h"
 
-void ai_play(Game *game) {
+void ai_play(Game *game, int pid) {
 }
