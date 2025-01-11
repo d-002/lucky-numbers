@@ -74,11 +74,45 @@ int get_start_pid() {
 Tile *flip_random(Game *game) {
     // choose a random common tile, among those that are not flipped
 
-    return NULL;
+    // first pass: check the number of hidden tiles
+    int count = 0;
+    int first_index = -1;
+    for (int i = 0; i < game->numTiles; i++) {
+        Tile *tile = game->allTiles+i;
+        if (tile->isTaken) continue;
+
+        if (first_index == -1) first_index = i;
+        if (!tile->isVisible) count++;
+    }
+
+    // second pass: pick a random tile among them
+    int index = 0;
+    int i = first_index;
+
+    while (1) {
+        Tile *tile = game->allTiles+i;
+        if (tile->isTaken) continue;
+
+        if (!tile->isVisible)
+            if (!index--) {
+                tile->isVisible = 1;
+                return tile;
+            }
+
+        i++;
+    }
 }
 
 Tile *choose_visible(Game *game, int value) {
     // choose a common tile by value, among those that are flipped
+
+    for (int i = 0; i < game->numTiles; i++) {
+        Tile *tile = game->allTiles+i;
+        if (tile->isTaken) continue;
+        if (tile->isVisible) continue;
+
+        if (tile->value == value) return tile;
+    }
 
     return NULL;
 }

@@ -12,9 +12,8 @@ int check_in_visible(Game *game, int value) {
 
         if (tile->value != value) continue;
         if (tile->isTaken) continue;
-        if (!tile->isVisible) continue;
 
-        return 1;
+        if (tile->isVisible) return 1;
     }
 
     return 0;
@@ -44,8 +43,8 @@ int pick_number(char *msg, Game *game, check_func func) {
 }
 
 void place(Game *game, Tile *tile, int pid) {
-    int x = pick_number("Enter x pos (1->4): ", game, check_pos);
-    int y = pick_number("Enter y pos (1->4): ", game, check_pos);
+    int x = pick_number("Enter x pos (0->3): ", game, check_pos);
+    int y = pick_number("Enter y pos (0->3): ", game, check_pos);
 
     place_tile_at(game, tile, pid, x, y);
 }
