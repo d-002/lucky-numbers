@@ -44,6 +44,7 @@ void print_tile_array(Tile **arr, int length) {
 }
 
 void print_game(Game *game) {
+    printf("\n");
     char two[3]; // buffer for twoDigits
     two[2] = '\0'; // end of string
 
@@ -117,6 +118,8 @@ void print_game(Game *game) {
 
     print_tile_array(hidden, count_h);
     print_tile_array(visible, count_v);
+    printf("\n");
+
     free(hidden);
     free(visible);
 }

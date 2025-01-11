@@ -109,7 +109,7 @@ Tile *choose_visible(Game *game, int value) {
     for (int i = 0; i < game->numTiles; i++) {
         Tile *tile = game->allTiles+i;
         if (tile->isTaken) continue;
-        if (tile->isVisible) continue;
+        if (!tile->isVisible) continue;
 
         if (tile->value == value) return tile;
     }
@@ -139,7 +139,6 @@ int play(Game *game, int pid) {
     else
         player_play(game, pid);
 
-    return -1;
     if (has_won(game, pid)) return -1;
 
     return pid % game->numPlayers + 1;

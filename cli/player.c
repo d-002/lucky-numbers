@@ -42,7 +42,7 @@ int pick_number(char *msg, Game *game, check_func func) {
     }
 }
 
-void place(Game *game, Tile *tile, int pid) {
+void ask_place(Game *game, Tile *tile, int pid) {
     int x = pick_number("Enter x pos (0->3): ", game, check_pos);
     int y = pick_number("Enter y pos (0->3): ", game, check_pos);
 
@@ -78,7 +78,7 @@ void player_play(Game *game, int pid) {
         int value = pick_number("Choose a number: ", game, check_in_visible);
         Tile *tile = choose_visible(game, value);
 
-        place(game, tile, pid);
+        ask_place(game, tile, pid);
     }
 
     else {
@@ -88,6 +88,6 @@ void player_play(Game *game, int pid) {
         int use = pick_number("Use this card in your game? (0/1): ",
                               game, check_bit);
 
-        if (use) place(game, tile, pid);
+        if (use) ask_place(game, tile, pid);
     }
 }
