@@ -1,6 +1,7 @@
 #include "player.h"
 
 #include <stdio.h>
+#include <err.h>
 
 typedef int (*check_func)(Game *, int);
 
@@ -27,14 +28,33 @@ int check_bit(Game *, int value) {
     return value >= 0 && value <= 1;
 }
 
+int read_number() {
+    char str[1024];
+    char *e = fgets(str, 1024, stdin);
+    if (!e) err(1, "fgets");
+
+    if (!str[0]) {
+        printf("No input, setting to 0\n");
+        return 0;
+    }
+
+    int n = 0;
+
+    char c;
+    char *p = str;
+    while ((c = *(p++))) {
+        if (c < '0' || c > '9') continue;
+        n = n*10 + c - '0';
+    }
+
+    return n;
+}
+
 int pick_number(char *msg, Game *game, check_func func) {
-    int n;
     while (1) {
         printf("%s", msg);
-        if (!scanf("%d", &n)) {
-            printf("No input, setting value to 0\n");
-            n = 0;
-        }
+
+        int n = read_number();
 
         if (func(game, n)) return n;
 
