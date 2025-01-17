@@ -25,10 +25,11 @@ typedef struct Game {
 #include "../ai/v1.h"
 
 // general Game utils
-Game *init_game(int, int);
+Game *make_game(int, int);
 void free_game(Game *);
 
 // in-game utils
+void init_game(Game *);
 int get_start_pid();
 Tile *flip_random(Game *);
 Tile *choose_visible(Game *, int);

@@ -5,8 +5,11 @@
 #include "cli/print.h"
 
 int main() {
-    Game *game = init_game(2, 0);
+    Game *game = make_game(2, 0);
     if (!game) err(1, "init_game");
+
+    init_game(game);
+    print_game(game);
 
     int pid = get_start_pid();
     while (1) {

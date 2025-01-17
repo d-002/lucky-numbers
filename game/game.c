@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 
-Game *init_game(int numPlayers, int aiMask) {
+Game *make_game(int numPlayers, int aiMask) {
     /*
     * allocate and init a new game object
     *
@@ -65,6 +65,33 @@ void free_game(Game *game) {
     free(game->players);
 
     free(game);
+}
+
+void init_game(Game *game) {
+    for (int pid = 1; pid <= game->numPlayers; pid++) {
+        // choose 4 tiles
+        Tile *tiles[4];
+        for (int i = 0; i < 4; i++)
+            tiles[i] = flip_random(game);
+
+        // sort tiles and add them to the game
+        for (int i = 0; i < 4; i++) {
+            int min = 20;
+            int minj = 0;
+
+            for (int j = 0; j < 4; j++) {
+                Tile *tile = tiles[j];
+                if (!tile) continue; // already added to the game
+                if (tile->value >= min) continue;
+
+                min = tile->value;
+                minj = j;
+            }
+
+            place_tile_at(game, tiles[minj], pid, i, i);
+            tiles[minj] = NULL;
+        }
+    }
 }
 
 int get_start_pid() {
