@@ -5,7 +5,7 @@
 #include "cli/print.h"
 
 int main() {
-    Game *game = make_game(2, 0);
+    Game *game = make_game(2, 1);
     if (!game) err(1, "init_game");
 
     init_game(game);

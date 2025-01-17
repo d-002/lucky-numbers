@@ -80,7 +80,7 @@ void init_game(Game *game) {
 
         // sort tiles and add them to the game
         for (int i = 0; i < 4; i++) {
-            int min = 20;
+            int min = 21;
             int minj = 0;
 
             for (int j = 0; j < 4; j++) {
