@@ -11,7 +11,7 @@ int main() {
     init_game(game);
     print_game(game);
 
-    int pid = get_start_pid();
+    int pid = get_start_pid(game);
     while (1) {
         printf("Player %d's turn\n\n", pid);
 

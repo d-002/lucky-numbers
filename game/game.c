@@ -1,6 +1,7 @@
 #include "game.h"
 
 #include <stdlib.h>
+#include <time.h>
 
 Game *make_game(int numPlayers, int aiMask) {
     /*
@@ -17,6 +18,9 @@ Game *make_game(int numPlayers, int aiMask) {
     * :return:
     * Game *game. Must free using free_game
     */
+
+    // init time here, shoud not be needed before
+    srand(time(NULL));
 
     if (numPlayers < 0 || numPlayers > 99) return NULL;
 
@@ -94,8 +98,8 @@ void init_game(Game *game) {
     }
 }
 
-int get_start_pid() {
-    return 1;
+int get_start_pid(Game *game) {
+    return rand()%game->numPlayers + 1;
 }
 
 Tile *flip_random(Game *game) {
@@ -113,7 +117,7 @@ Tile *flip_random(Game *game) {
     }
 
     // second pass: pick a random tile among them
-    int rand_index = 0;
+    int rand_index = rand()%count;
     int i = first_index;
 
     while (1) {

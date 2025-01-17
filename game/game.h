@@ -30,7 +30,7 @@ void free_game(Game *);
 
 // in-game utils
 void init_game(Game *);
-int get_start_pid();
+int get_start_pid(Game *);
 Tile *flip_random(Game *);
 Tile *choose_visible(Game *, int);
 void place_tile_at(Game *, Tile *, int, int, int);
