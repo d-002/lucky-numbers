@@ -157,7 +157,13 @@ void place_tile_at(Game *game, Tile *tile, int pid, int x, int y) {
 }
 
 int has_won(Game *game, int pid) {
-    return 0;
+    Tile ***player = game->players[pid-1];
+
+    for (int x = 0; x < 4; x++)
+        for (int y = 0; y < 4; y++)
+            if (!player[y][x]) return 0;
+
+    return 1;
 }
 
 int play(Game *game, int pid) {
