@@ -113,20 +113,18 @@ Tile *flip_random(Game *game) {
     }
 
     // second pass: pick a random tile among them
-    int index = 0;
+    int rand_index = 0;
     int i = first_index;
 
     while (1) {
-        Tile *tile = game->allTiles+i;
+        Tile *tile = game->allTiles + i++;
         if (tile->isTaken) continue;
 
         if (!tile->isVisible)
-            if (!index--) {
+            if (!rand_index--) {
                 tile->isVisible = 1;
                 return tile;
             }
-
-        i++;
     }
 }
 
